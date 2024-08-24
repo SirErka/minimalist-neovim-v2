@@ -1,5 +1,6 @@
 # Hey!!
 ive decided to make a new and improved neovim config
+
 i hope you like it !!
 
 to install,
