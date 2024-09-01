@@ -28,17 +28,17 @@ return {
       -- Color table for highlights
       -- stylua: ignore
       local colors = {
-        bg       = '#232136',
-        fg       = '#e0def4',
-        yellow   = '#e0def4',
-        cyan     = '#9ccfd8',
-        darkblue = '#3e8fb0',
-        green    = '#3e8fb0',
-        orange   = '#ea9a97',
-        violet   = '#c4a7e7',
-        magenta  = '#c4a7e7',
-        blue     = '#9ccfd8',
-        red      = '#eb6f92',
+        bg       = '#faf4ed',
+        fg       = '#575279',
+        yellow   = '#ea9d34',
+        cyan     = '#56949f',
+        darkblue = '#286983',
+        green    = '#286983',
+        orange   = '#d7827e',
+        violet   = '#907aa9',
+        magenta  = '#d7827e',
+        blue     = '#56949f',
+        red      = '#b4637a',
       }
 
       local conditions = {
@@ -328,5 +328,54 @@ return {
       vim.g.mkdp_filetypes = { "markdown" }
     end,
     ft = { "markdown" },
+  },
+  {
+    "rcarriga/nvim-notify",
+    config = function()
+      vim.notify = require("notify")
+    end,
+  },
+  -- lazy.nvim
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+      -- add any options here
+    },
+    dependencies = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      "MunifTanjim/nui.nvim",
+      -- OPTIONAL:
+      --   `nvim-notify` is only needed, if you want to use the notification view.
+      --   If not available, we use `mini` as the fallback
+      "rcarriga/nvim-notify",
+    },
+    config = function()
+      require("noice").setup({
+        lsp = {
+          -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+          override = {
+            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+            ["vim.lsp.util.stylize_markdown"] = true,
+            ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+          },
+        },
+        -- you can enable a preset for easier configuration
+        presets = {
+          bottom_search = true,    -- use a classic bottom cmdline for search
+          command_palette = true,  -- position the cmdline and popupmenu together
+          long_message_to_split = true, -- long messages will be sent to a split
+          inc_rename = false,      -- enables an input dialog for inc-rename.nvim
+          lsp_doc_border = false,  -- add a border to hover docs and signature help
+        },
+      })
+    end,
+  },
+  {
+    "gelguy/wilder.nvim",
+    config = function()
+      local wilder = require("wilder")
+      wilder.setup({ modes = { ":", "/", "?" } })
+    end,
   },
 }
