@@ -10,7 +10,7 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "tsserver", "clangd", "cmake", "jsonls" },
+				ensure_installed = { "lua_ls", "ts_ls", "clangd", "cmake", "jsonls" },
 			})
 		end,
 	},
@@ -31,7 +31,7 @@ return {
 				},
 				capabilities = capabilities,
 			})
-			lspconfig.tsserver.setup({ capabilities = capabilities })
+			lspconfig.ts_ls.setup({ capabilities = capabilities })
 			lspconfig.clangd.setup({ capabilities = capabilities })
 
 			vim.keymap.set("n", "H", vim.lsp.buf.hover, {})
